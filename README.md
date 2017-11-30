@@ -6,4 +6,4 @@ izmedu se mogu nalaziti razna smeca, primjerice mozete kopirati cijelu tablicu s
 
 napravite datoteku bitni.txt u kojoj pisu ljudi u formatu: prezime ime
 
-pokrenite ./rokaj rezultati pri cemu su rezultati bilo koja datoteka u kojoj su rezultati
+pokrenite rokaj s argumentom datoteke u kojoj se nalaze rezultati
