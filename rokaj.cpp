@@ -116,7 +116,7 @@ void load_base()
     REP(i, (int) Bitni.size())
       if (isti(Bitni[i], name)) {
         V.push_back({name, num});
-        printf("PUSH %s %s\n", name.c_str(), num.c_str());
+        printf("JMBAG %s %s\n", name.c_str(), num.c_str());
       }
 
     fscanf(baza, " ");
@@ -132,7 +132,6 @@ void load_bitni()
   for (; ~fscanf(bitni, "%[^\n]", s); ) {
     Bitni.push_back((string) s);
     fscanf(bitni, " ");
-    TRACE(s);
   }
 }
 
