@@ -143,22 +143,27 @@ string jel_bitan_jmbag(string s)
   return "";
 }
 
-void load_rez(char *pp)
+void load_rez(char *pp, const double TRESHOLD = 0)
 {
   vector <pair<string, string> > R;
-  
+  int counter = 0;
+
   FILE *f = fopen(pp, "r");
   char s[100];
   assert(f);
 
   string st = "";
   string rez = "";
+  string last = "-1";
   for (; ~fscanf(f, "%s", s); ) {
     string tmp = s;
     if (is_jmbag(tmp)) {
       string ime = jel_bitan_jmbag(st);
       if (!ime.empty())
-	R.push_back({ime, rez});
+        R.push_back({ime, rez});
+      
+      if (stod(last) >= TRESHOLD)
+        counter++;
 
       st = tmp;
       rez = "";
@@ -166,6 +171,8 @@ void load_rez(char *pp)
     else
       rez += " " + tmp;
 
+    if (tmp.size() > 0 && isdigit(tmp[0]))
+      last = tmp;
     fscanf(f, " ");
   }
 
@@ -176,16 +183,23 @@ void load_rez(char *pp)
   for (auto it : Bitni)
     for (auto it2 : R)
       if (isti(it2.X, it))
-	printf("%s -> %s\n", it2.X.c_str(), it2.Y.c_str());          
+        printf("%s -> %s\n", it2.X.c_str(), it2.Y.c_str());          
+
+  printf(">= %.1f: %d\n", TRESHOLD, counter);
 }
 
 int main(int argc, char *argv[])
 {
-  assert(argc == 2);
+  assert(argc <= 3);
 
   load_bitni();
   load_base();
-  load_rez(argv[1]);
+  if (argc == 2){
+    load_rez(argv[1]);
+  }
+  else{
+    load_rez(argv[1], stod(argv[2]));
+  }
 
   return 0;
 }
